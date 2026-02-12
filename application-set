@@ -1,0 +1,113 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"ApplicationSet","metadata":{"annotations":{},"name":"test-app","namespace":"argocd"},"spec":{"generators":[{"list":{"elements":[{"env":"test"}]}}],"template":{"metadata":{"name":"test-app-{{env}}"},"spec":{"destination":{"namespace":"test-app","server":"https://kubernetes.default.svc"},"project":"default","sources":[{"helm":{"valueFiles":["values.yaml","$values/values.yaml"]},"path":"initial-app","repoURL":"https://github.com/OsheRicko/gitops-platform","targetRevision":"main"},{"ref":"values","repoURL":"https://github.com/OsheRicko/my-cool-app-repo","targetRevision":"main"}],"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}}}
+  creationTimestamp: '2026-02-11T16:45:28Z'
+  generation: 1
+  managedFields:
+    - apiVersion: argoproj.io/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:spec:
+          .: {}
+          f:generators: {}
+          f:template:
+            .: {}
+            f:metadata:
+              .: {}
+              f:name: {}
+            f:spec:
+              .: {}
+              f:destination:
+                .: {}
+                f:namespace: {}
+                f:server: {}
+              f:project: {}
+              f:sources: {}
+              f:syncPolicy:
+                .: {}
+                f:automated:
+                  .: {}
+                  f:prune: {}
+                  f:selfHeal: {}
+      manager: kubectl-client-side-apply
+      operation: Update
+      time: '2026-02-11T16:45:28Z'
+    - apiVersion: argoproj.io/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          .: {}
+          f:conditions: {}
+          f:resources: {}
+          f:resourcesCount: {}
+      manager: argocd-applicationset-controller
+      operation: Update
+      subresource: status
+      time: '2026-02-12T08:33:05Z'
+  name: test-app
+  namespace: argocd
+  resourceVersion: '278581'
+  uid: b704766d-ff14-464d-bb20-479580ae8d3d
+  selfLink: /apis/argoproj.io/v1alpha1/namespaces/argocd/applicationsets/test-app
+status:
+  conditions:
+    - lastTransitionTime: '2026-02-11T16:45:28Z'
+      message: All applications have been generated successfully
+      reason: ApplicationSetUpToDate
+      status: 'False'
+      type: ErrorOccurred
+    - lastTransitionTime: '2026-02-11T16:45:28Z'
+      message: Successfully generated parameters for all Applications
+      reason: ParametersGenerated
+      status: 'True'
+      type: ParametersGenerated
+    - lastTransitionTime: '2026-02-11T16:45:28Z'
+      message: All applications have been generated successfully
+      reason: ApplicationSetUpToDate
+      status: 'True'
+      type: ResourcesUpToDate
+  resources:
+    - group: argoproj.io
+      health:
+        status: Missing
+      kind: Application
+      name: test-app-test
+      namespace: argocd
+      status: OutOfSync
+      version: v1alpha1
+  resourcesCount: 1
+spec:
+  generators:
+    - list:
+        elements:
+          - env: test
+  template:
+    metadata:
+      name: test-app-{{env}}
+    spec:
+      destination:
+        namespace: test-app
+        server: https://kubernetes.default.svc
+      project: default
+      sources:
+        - helm:
+            valueFiles:
+              - values.yaml
+              - $values/values.yaml
+          path: initial-app
+          repoURL: https://github.com/OsheRicko/gitops-platform
+          targetRevision: main
+        - ref: values
+          repoURL: https://github.com/OsheRicko/my-cool-app-repo
+          targetRevision: main
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

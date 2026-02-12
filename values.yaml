@@ -1,3 +1,10 @@
 service:
-  type: ClusterIP
-  port: 5000
+  type: ClusterIP  # Type of Kubernetes service (ClusterIP, NodePort, LoadBalancer)
+  port: 5000       # Port that the service will expose
+
+env:
+  - name: APP_USER              # Name of the environment variable in your application
+    valueFrom:
+      secretKeyRef:
+        name: poc-k8s-secret  # Name of the Kubernetes Secret created by External Secrets Operator
+        key: APP-USER-KV         # Key within the Secret to extract the value from
